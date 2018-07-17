@@ -1,0 +1,16 @@
+Release note
+
+version 1.2.1 (July 9, 2018)
+  * bug fix: MPI communicator duplication error in main.F90 has been fixed.
+
+version 1.2 (June 24, 2017)
+  * When the size of the aggregated I/O requests per MPI process is large than
+    2GiB, the aggregation is disabled and write requests are performed by one
+    species at a time.
+
+version 1.1 (December 26, 2015)
+  * Add command-line option to choose PnetCDF blocking APIs or nonblocking APIs.
+  * Add command-line option for whether to run from a restart file.
+  * Reorganize performance result output.
+
+version 1.0 (November 22, 2013)
