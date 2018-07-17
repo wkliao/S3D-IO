@@ -2,8 +2,6 @@
 #  Copyright (C) 2013, Northwestern University
 #  See COPYRIGHT notice in top-level directory.
 #
-#  $Id: Makefile 4697 2018-07-09 16:24:02Z wkliao $
-#
 #
 # Please change the following variables:
 #    MPIF90        -- MPI Fortran compiler
@@ -57,7 +55,7 @@ dist:
 	gzip $(PACKAGE_NAME).tar
 	/bin/rm -rf $(PACKAGE_NAME)
 
-clean: 
+clean:
 	/bin/rm -f $(OBJS) $(MODS) $(TARGET)
 
 distclean: clean

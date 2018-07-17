@@ -1,26 +1,27 @@
-#
+# PnetCDF I/O Benchmark using S3D Application I/O Kernel
 
-This benchmark programs is the I/O kernel of S3D combustion simulation code.
-http://exactcodesign.org/ There are several I/O methods implemented in S3D.
-This software only contains the method of Parallel NetCDF.
+This benchmark program is developed to evaluate the performance of
+the I/O kernel of [S3D combustion simulation code](http://exactcodesign.org).
+There are several I/O methods implemented. This software only contains the
+method of [PnetCDF](https://parallel-netcdf.github.io/).
 
 S3D is a continuum scale first principles direct numerical simulation code
 which solves the compressible governing equations of mass continuity, momenta,
 energy and mass fractions of chemical species including chemical reactions.
-Readers are referred to the published paper below.  J. Chen, A. Choudhary, B.
-de Supinski, M. DeVries, E. Hawkes, S. Klasky, W. Liao, K. Ma, J. Crummey, N.
-Podhorszki, R. Sankaran, S. Shende, and C. Yoo. Teras-cale Direct Numerical
-Simulations of Turbulent Combustion Using S3D. In Computational Science and
-Discovery Volume 2, January 2009.
+Readers are referred to the published paper below.
+* J. Chen, A. Choudhary, B. de Supinski, M. DeVries, E. Hawkes, S. Klasky,
+  W. Liao, K. Ma, J. Crummey, N. Podhorszki, R. Sankaran, S. Shende, and
+  C. Yoo. Teras-cale Direct Numerical Simulations of Turbulent Combustion
+  Using S3D. In Computational Science and Discovery Volume 2, January 2009.
 
 # I/O pattern:
-A checkpoint is performed at regular intervals, and its data consist of 8-byte
+A data checkpoint is performed at regular time intervals, and its data consist of 8-byte
 three-dimensional arrays. At each checkpoint, four global arrays, representing
 mass, velocity, pressure, and temperature, respectively, are written to a newly
 created file in the canonical order. Mass and velocity are four-dimensional
 arrays while pressure and temperature are three-dimensional arrays. All four
 arrays share the same size for the lowest three spatial dimensions X, Y, and Z,
-which are partitioned among MPI processes in a block-block-block fashion. For
+which are partitioned among MPI processes in a **block-block-block** fashion. For
 the mass and velocity arrays, the length of the fourth dimension is 11 and 3,
 respectively. The fourth dimension, the most significant one, is not
 partitioned. As the number of MPI processes increases, the aggregate I/O
@@ -48,7 +49,7 @@ For example:
     PNETCDF_DIR = ${HOME}/PnetCDF
 ```
 # To run:
-Usage: 's3d_io.x nx_g ny_g nz_g npx npy npz method restart dir_path'
+Usage: `s3d_io.x nx_g ny_g nz_g npx npy npz method restart dir_path`
 There are 9 command-line arguments:
 ```
        nx_g     - GLOBAL grid size along X dimension
@@ -62,13 +63,13 @@ There are 9 command-line arguments:
        dir_path - the directory name to store the output files
 ```
 To change the number of checkpoint dumps (default is set to 5), edit
-file param_m.f90 and set a different value for i_time_end:
+file `param_m.f90` and set a different value for `i_time_end`:
 ```
        i_time_end = 5   ! number of checkpoints (also number of output files)
 ```
 The contents of all variables written to files are set to random numbers.
 This setting can be disabled by comment out the line below in file
-solve_driver.f90
+`solve_driver.f90`.
 ```
        call random_set
 ```
@@ -80,12 +81,12 @@ example command for running on 4 MPI processes.
 ```
 The command below runs on 4096 MPI processes with the global array
 of size 800x800x800 and local array of size 50x50x50, output directory
-/scratch1/scratchdirs/wkliao/FS_1M_96 using nonblocking APIs, and without
+`/scratch1/scratchdirs/wkliao/FS_1M_96` using nonblocking APIs, and without
 restart.
 ```
    mpiexec -l -n 512 ./s3d_io.x 800 800 800 16 16 16 1 F /scratch1/scratchdirs/wkliao/FS_1M_96
 ```
-# Example output from stdout:
+# Example output from screen:
 ```
  ++++ I/O is done through PnetCDF ++++
  I/O method          : nonblocking APIs
@@ -117,3 +118,4 @@ email: wkliao@eecs.northwestern.edu
 Copyright (C) 2013, Northwestern University
 
 See COPYRIGHT notice in top-level directory.
+

@@ -23,7 +23,7 @@
 
           ! local variables
           integer err
-     
+
           print *, 'Error: ',trim(err_msg),' ',nfmpi_strerror(errcode)
           call MPI_Abort(MPI_COMM_WORLD, -1, err)
       end subroutine handle_err

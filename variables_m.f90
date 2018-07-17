@@ -4,7 +4,7 @@
 !
 
       module variables_m
-      ! module for variables variables
+      ! module for variables
       implicit none
 
       ! primitive variables

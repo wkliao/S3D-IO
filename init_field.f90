@@ -13,7 +13,7 @@
 
          integer err
 
-         ! allocate checkpointing variable arrays
+         ! allocate buffers for variable arrays
          call allocate_variables_arrays(1)
 
          time_save_inc = 1.0e+5

@@ -88,7 +88,7 @@
           ! local variables
           integer       err
           character*16  int_str
-  
+
           ! free up info and file type
           if (flag .EQ. -1) then
               if (file_info .NE. MPI_INFO_NULL) then
