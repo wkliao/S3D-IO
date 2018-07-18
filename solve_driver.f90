@@ -16,6 +16,8 @@
           integer err
           double precision total_time, t
 
+          total_time = 0.0
+
           ! set MPI-IO and PnetCDF hints
           call set_io_hints(1)
 
@@ -29,7 +31,7 @@
           do while (i_time < i_time_end)
              i_time = i_time + 1
 
-             ! assign random numbers to all variables
+             ! assign random numbers to all variables, excluded from timing
              call random_set
 
              call MPI_Barrier(gcomm,err)
