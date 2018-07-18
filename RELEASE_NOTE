@@ -5,7 +5,7 @@ version 1.2.1 (July 9, 2018)
 
 version 1.2 (June 24, 2017)
   * When the size of the aggregated I/O requests per MPI process is large than
-    2GiB, the aggregation is disabled and write requests are performed by one
+    2 GiB, the aggregation is disabled and write requests are performed by one
     species at a time.
 
 version 1.1 (December 26, 2015)
