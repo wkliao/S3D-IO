@@ -14,7 +14,7 @@ Readers are referred to the published paper below.
   C. Yoo. Teras-cale Direct Numerical Simulations of Turbulent Combustion
   Using S3D. In Computational Science and Discovery Volume 2, January 2009.
 
-# I/O pattern:
+## I/O pattern:
 A data checkpoint is performed at regular time intervals, and its data consist of 8-byte
 three-dimensional arrays. At each checkpoint, four global arrays, representing
 mass, velocity, pressure, and temperature, respectively, are written to a newly
@@ -35,7 +35,7 @@ please refer to the following paper.
   High Performance Computing, Networking, Storage and Analysis, Austin,
   Texas, November 2008.
 
-# To compile:
+## To compile:
 Edit Makefile and set/change variables:
 ```
     MPIF90         - MPI Fortran 90 compiler
@@ -48,7 +48,7 @@ For example:
     FCFLAGS     = -O2
     PNETCDF_DIR = ${HOME}/PnetCDF
 ```
-# To run:
+## To run:
 Usage: `s3d_io.x nx_g ny_g nz_g npx npy npz method restart dir_path`
 There are 9 command-line arguments:
 ```
@@ -73,7 +73,7 @@ This setting can be disabled by comment out the line below in file
 ```
        call random_set
 ```
-# Example run command:
+## Example run command:
 For a test run with small data size and a short return time, here is an
 example command for running on 4 MPI processes.
 ```
@@ -86,7 +86,7 @@ restart.
 ```
    mpiexec -l -n 512 ./s3d_io.x 800 800 800 16 16 16 1 F /scratch1/scratchdirs/wkliao/FS_1M_96
 ```
-# Example output from screen:
+## Example output from screen:
 ```
  ++++ I/O is done through PnetCDF ++++
  I/O method          : nonblocking APIs
@@ -112,7 +112,7 @@ restart.
  total I/O   time    :       18.17 sec
  I/O   bandwidth     :    17201.53 MiB/s
 ```
-# Questions/Comments:
+## Questions/Comments:
 email: wkliao@eecs.northwestern.edu
 
 Copyright (C) 2013, Northwestern University
