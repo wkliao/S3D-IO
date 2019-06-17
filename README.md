@@ -91,7 +91,7 @@ array of size `800 x 800 x 800` and local arrays of size `50 x 50 x 50`, output
 directory `/scratch1/scratchdirs/wkliao/FS_1M_96` using nonblocking APIs, and
 without restart.
 ```
-   mpiexec -l -n 512 ./s3d_io.x 800 800 800 16 16 16 1 F /scratch1/scratchdirs/wkliao/FS_1M_96
+   mpiexec -l -n 4096 ./s3d_io.x 800 800 800 16 16 16 1 F /scratch1/scratchdirs/wkliao/FS_1M_96
 ```
 
 ## Example output from screen:
