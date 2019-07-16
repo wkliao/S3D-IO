@@ -22,19 +22,28 @@ temperature, respectively, are written to a newly created file in the canonical
 order. Mass and velocity are four-dimensional arrays while pressure and
 temperature are three-dimensional arrays. All four arrays share the same size
 of the lowest three spatial dimensions X, Y, and Z, which are partitioned among
-MPI processes in a **block-block-block** fashion. For the mass and velocity
+MPI processes in a **block-block-block** fashion. See Figure 1 below for an
+illustration when the number of MPI processes is 64. For the mass and velocity
 arrays, the length of the fourth dimension is 11 and 3, respectively. The
 fourth dimension, the most significant one, is not partitioned. As the number
 of MPI processes increases, the aggregate I/O amount proportionally increases
-as well.
-
-For detailed description of the data partitioning and I/O patterns, please
-refer to the following paper.
+as well. For more detailed description, please refer to:
 * W. Liao and A. Choudhary. Dynamically Adapting File Domain Partitioning
   Methods for Collective I/O Based on Underlying Parallel File System
   Locking Protocols. In the Proceedings of International Conference for
   High Performance Computing, Networking, Storage and Analysis, Austin,
   Texas, November 2008.
+
+<p align="center">
+<img align="center" width="500" src="s3d_pattern.png">
+</p>
+
+**Figure 1.** S3D I/O data partitioning pattern. (a) For 3D arrays, the
+sub-array of each process is mapped to the global array in a fashion of block
+partitioning in all X-Y-Z dimensions.(b) For 4D arrays, the lowest X-Y-Z
+dimensions are partitioned the same as the 3D arrays while the fourth dimension
+is not partitioned. This example uses 64 processes and highlights the mapping
+of process P41's sub-array to the global array.
 
 ## To compile:
 Edit file `Makefile` and adjust the following variables:
