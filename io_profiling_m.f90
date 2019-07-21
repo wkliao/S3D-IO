@@ -10,7 +10,6 @@
 
       character*256 :: dir_path      ! directory name for output files
       integer file_info, info_used
-      integer cb_nodes               ! collective buffering nodes
 
       integer          read_num      ! number of read calls
       integer          write_num     ! number of write calls
@@ -86,8 +85,7 @@
           integer, intent(in) :: flag
 
           ! local variables
-          integer       err
-          character*16  int_str
+          integer err
 
           ! free up info and file type
           if (flag .EQ. -1) then
@@ -112,19 +110,9 @@
           ! set MPI I/O hints for performance enhancement
           call MPI_Info_create(file_info, err)
 
-          ! disable ROMIO data sieving
-          call MPI_Info_set(file_info, 'romio_ds_write',    'disable', err)
-          call MPI_Info_set(file_info, 'romio_ds_read',     'disable', err)
-          call MPI_Info_set(file_info, 'romio_no_indep_rw', 'true',    err)
-
-          ! set the number of aggregate I/O nodes (for advanced users)
-          write(int_str,'(I16)') cb_nodes
-          ! call MPI_Info_set(file_info, 'cb_nodes', int_str, err)
-
           ! set PnetCDF hints
-          ! call MPI_Info_set (file_info, 'nc_header_align_size',      '512',    err)
-          ! call MPI_Info_set (file_info, 'nc_var_align_size',         '512',    err)
-          ! call MPI_Info_set (file_info, 'nc_header_read_chunk_size', '262144', err)
+          call MPI_Info_set(file_info, "nc_var_align_size", "1", err);
+          call MPI_Info_set(file_info, "nc_in_place_swap", "enable", err);
 
       end subroutine set_io_hints
 

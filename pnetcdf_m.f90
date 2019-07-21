@@ -220,6 +220,9 @@
           ! open file and pass in the MPI hint
           time_start = MPI_Wtime()
 
+          ! increase number of read aggregators to 4 per compute node
+          ! call MPI_Info_set(file_info, 'cb_config_list', '*:4', err)
+
           cmode = NF_NOWRITE
           err = nfmpi_open(gcomm, trim(filename), cmode, file_info, ncid)
           if (err .ne. NF_NOERR) call handle_err('nfmpi_open', err)
