@@ -81,6 +81,17 @@ file `param_m.f90` and set a different value for `i_time_end`:
 ```
        i_time_end = 5   ! number of checkpoints (also number of output files)
 ```
+When the I/O method is set to PnetCDF blocking APIs, each checkpoint has a
+total of `4 x i_time_end` collective PnetCDF write calls, one for each
+variable. If restart is set to True, the number of read collective calls is 4,
+one per variable, regardless of the number of checkpoints, as read only
+performs once at the beginning of the run. When the I/O method is set to
+PnetCDF nonblocking APIs, each checkpoint has 4 nonblocking PnetCDF write
+calls, one per variable, followed by a call to `nfmpi_waitall` to flush the
+write requests. Thus, the total number of calls to nfmpi_waitall is equal to
+i_time_end. For read, there are a total of 4 nonblocking PnetCDF read calls and
+a single call to nfmpi_waitall for read requests.
+
 The contents of all variables written to netCDF files are randomly generated
 numbers. This setting can be disabled by commenting out the line below in file
 `solve_driver.f90`. Commenting it out can reduce the benchmark execution time.
